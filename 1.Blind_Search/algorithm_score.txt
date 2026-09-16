@@ -1,0 +1,28 @@
+BLIND SEARCH LAB | seed=20260915 | algorithm=algorithm
+Attempted: 20/20 | Solved: 20/20
+Overall score: 96.47/100
+Unattempted levels count as zero. Moves exclude the start cell.
+Expanded = student-reported frontier removals, including goal; not graded.
+Level | Moves | Optimal | Expanded | BFS expanded | Search ms | Score | Status
+01 | 96 | 94 | 2495 | 2496 | 2.383 | 97.92 | Solved
+02 | 100 | 94 | 2362 | 2371 | 2.210 | 94.00 | Solved
+03 | 100 | 94 | 2262 | 2271 | 2.097 | 94.00 | Solved
+04 | 102 | 94 | 2166 | 2171 | 2.027 | 92.16 | Solved
+05 | 98 | 94 | 2030 | 2071 | 1.944 | 95.92 | Solved
+06 | 102 | 94 | 1961 | 1967 | 1.826 | 92.16 | Solved
+07 | 98 | 94 | 1846 | 1857 | 1.719 | 95.92 | Solved
+08 | 104 | 98 | 1742 | 1751 | 1.641 | 94.23 | Solved
+09 | 118 | 102 | 1624 | 1624 | 1.611 | 86.44 | Solved
+10 | 116 | 108 | 1467 | 1468 | 1.506 | 93.10 | Solved
+11 | 118 | 118 | 1179 | 1199 | 1.127 | 100.00 | Solved
+12 | 154 | 154 | 1210 | 1218 | 1.191 | 100.00 | Solved
+13 | 174 | 170 | 868 | 870 | 0.774 | 97.70 | Solved
+14 | 194 | 186 | 813 | 815 | 0.726 | 95.88 | Solved
+15 | 318 | 318 | 1172 | 1173 | 1.196 | 100.00 | Solved
+16 | 326 | 326 | 543 | 541 | 0.514 | 100.00 | Solved
+17 | 446 | 446 | 1036 | 1049 | 1.010 | 100.00 | Solved
+18 | 514 | 514 | 1138 | 1137 | 1.141 | 100.00 | Solved
+19 | 522 | 522 | 1140 | 1135 | 1.127 | 100.00 | Solved
+20 | 542 | 542 | 934 | 950 | 0.861 | 100.00 | Solved
+Total successful moves: 4342
+Total recorded search time: 0.028630 seconds
