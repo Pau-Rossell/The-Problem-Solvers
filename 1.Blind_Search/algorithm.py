@@ -8,17 +8,24 @@ start, goal: (row, column). Only up/down/left/right moves are allowed.
 Return ([], expanded, exploration) when no path exists.
 """
 # DFS(Use .pop(-1))
-def solve(grid, start, goal):
+def blind_search(grid, start, goal, strategy):
     # random search demo starts
     frontier = [start]
     parent = {start: None}
     expanded = 0
     exploration = []
 
+    strategy = strategy.upper()
+    if strategy not in ['DFS', 'BFS']:
+        raise ValueError("Invalid strategy. Use 'DFS' or 'BFS'.")
+
     while frontier:
         
-        current = frontier.pop(-1) # LIFO
-        
+        if strategy == 'DFS':
+            current = frontier.pop(-1) # LIFO
+        elif strategy == 'BFS':
+            current = frontier.pop(0) # FIFO
+
         expanded += 1
         exploration.append(current)
 
@@ -39,6 +46,9 @@ def solve(grid, start, goal):
 
     # random search demo ends
     return [], expanded, exploration
+
+def solve(grid, start, goal):
+    return blind_search(grid, start, goal, strategy='BFS') # DFS or BFS
 
 # BFS(He eliminado el for loop porque no era necesario)(Use .pop(0))
 # def solve(grid, start, goal):
