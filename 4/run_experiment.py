@@ -14,7 +14,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
 CONFIG = ROOT / "config.json"
-CANDIDATE = "algorithm_bot.py"
+CANDIDATE = "algorithm_alpha-beta.py"
 BASELINE = "algorithm_bot.py"
 FIRST_SEED = 1000  # Game n uses seed FIRST_SEED + n - 1.
 

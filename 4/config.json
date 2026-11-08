@@ -1,7 +1,7 @@
 {
   "mode": "ai_vs_ai",
   "human_color": "white",
-  "white_algorithm": "algorithm_bot.py",
+  "white_algorithm": "algorithm_alpha-beta.py",
   "black_algorithm": "algorithm_bot.py",
   "search_depth": 3,
   "move_delay_seconds": 0,

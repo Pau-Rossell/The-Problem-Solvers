@@ -11,48 +11,110 @@ from algorithm_bot import (evaluate_board as material_score, terminal_score)
 
 def positional_terms(board: chess.Board) -> float:
     """
-    Calculate a positional bonus using small weights relative to a pawn (100).
-    Test each feature individually to measure its impact on playing strength.
+    Evaluate positional characteristics from White's perspective.
+    Positive scores favor White; negative scores favor Black.
     """
+
     score = 0
-    
-    # 1. Center control (mirrored colors)
+
+    # 1. Center occupation and control
     center_squares = [chess.D4, chess.E4, chess.D5, chess.E5]
+
     for sq in center_squares:
         piece = board.piece_at(sq)
+
+        # Reward occupying central squares
         if piece:
             score += 10 if piece.color == chess.WHITE else -10
-            
-    # 2. Piece development (penalize Knights on starting squares)
-    for sq in [chess.B1, chess.G1]:
+
+        # Reward attacking central squares
+        score += 5 * (
+            len(board.attackers(chess.WHITE, sq))
+            - len(board.attackers(chess.BLACK, sq))
+        )
+
+    # 2. Piece development (penalize undeveloped knights and bishops)
+    white_starting_squares = [
+        chess.B1, chess.G1,
+        chess.C1, chess.F1
+    ]
+
+    black_starting_squares = [
+        chess.B8, chess.G8,
+        chess.C8, chess.F8
+    ]
+
+    for sq in white_starting_squares:
         piece = board.piece_at(sq)
-        if piece and piece.piece_type == chess.KNIGHT and piece.color == chess.WHITE:
+        if piece and piece.color == chess.WHITE:
             score -= 15
-    for sq in [chess.B8, chess.G8]:
+
+    for sq in black_starting_squares:
         piece = board.piece_at(sq)
-        if piece and piece.piece_type == chess.KNIGHT and piece.color == chess.BLACK:
+        if piece and piece.color == chess.BLACK:
             score += 15
 
-    # 3. King safety (simple bonus for castling/moving from the center)
-    if board.king(chess.WHITE) not in [chess.E1, chess.D1]:
+    # 3. King safety (reward castling)
+    if not board.has_kingside_castling_rights(chess.WHITE) and \
+       not board.has_queenside_castling_rights(chess.WHITE):
         score += 20
-    if board.king(chess.BLACK) not in [chess.E8, chess.D8]:
+
+    if not board.has_kingside_castling_rights(chess.BLACK) and \
+       not board.has_queenside_castling_rights(chess.BLACK):
         score -= 20
 
     # 4. Pawn structure (penalize doubled pawns)
     white_pawns = board.pieces(chess.PAWN, chess.WHITE)
     black_pawns = board.pieces(chess.PAWN, chess.BLACK)
-    
-    for file_index in range(8): # Iterate through files A to H (0 to 7)
-        # Count how many white and black pawns are on the current file
-        w_pawns_on_file = sum(1 for sq in white_pawns if chess.square_file(sq) == file_index)
-        b_pawns_on_file = sum(1 for sq in black_pawns if chess.square_file(sq) == file_index)
-        
-        # Penalize 15 points for each extra pawn on the same file
+
+    for file_index in range(8):
+        w_pawns_on_file = sum(
+            1 for sq in white_pawns
+            if chess.square_file(sq) == file_index
+        )
+
+        b_pawns_on_file = sum(
+            1 for sq in black_pawns
+            if chess.square_file(sq) == file_index
+        )
+
         if w_pawns_on_file > 1:
             score -= 15 * (w_pawns_on_file - 1)
+
         if b_pawns_on_file > 1:
             score += 15 * (b_pawns_on_file - 1)
+
+    # 5. Pawn structure (penalize isolated pawns)
+    for color in [chess.WHITE, chess.BLACK]:
+        pawns = board.pieces(chess.PAWN, color)
+
+        for sq in pawns:
+            file_index = chess.square_file(sq)
+
+            adjacent_files = [
+                f for f in (file_index - 1, file_index + 1)
+                if 0 <= f < 8
+            ]
+
+            isolated = not any(
+                chess.square_file(other_sq) in adjacent_files
+                for other_sq in pawns
+            )
+
+            if isolated:
+                score += -15 if color == chess.WHITE else 15
+
+    # 6. Mobility (reward positions with more legal moves)
+    white_board = board.copy()
+    white_board.turn = chess.WHITE
+
+    black_board = board.copy()
+    black_board.turn = chess.BLACK
+
+    white_mobility = white_board.legal_moves.count()
+    black_mobility = black_board.legal_moves.count()
+
+    score += 2 * (white_mobility - black_mobility)
 
     return score
 
