@@ -9,6 +9,21 @@ import random
 import chess
 from algorithm_bot import (evaluate_board as material_score, terminal_score)
 
+def king_safety(board, color):
+    """+20 if castled, -20 if castling rights are lost without castling."""
+    rank = 0 if color == chess.WHITE else 7
+    king = board.king(color)
+    rook = chess.Piece(chess.ROOK, color)
+    castled = (
+        (king == chess.square(6, rank) and board.piece_at(chess.square(5, rank)) == rook) or  # O-O: king g1, rook f1
+        (king == chess.square(2, rank) and board.piece_at(chess.square(3, rank)) == rook)     # O-O-O: king c1, rook d1
+    )
+    if castled:
+        return 20
+    if not board.has_castling_rights(color):
+        return -20
+    return 0
+
 def positional_terms(board: chess.Board) -> float:
     """
     Evaluate positional characteristics from White's perspective.
@@ -46,22 +61,17 @@ def positional_terms(board: chess.Board) -> float:
 
     for sq in white_starting_squares:
         piece = board.piece_at(sq)
-        if piece and piece.color == chess.WHITE:
+        if piece and piece.color == chess.WHITE and piece.piece_type in (chess.KNIGHT, chess.BISHOP):
             score -= 15
 
     for sq in black_starting_squares:
         piece = board.piece_at(sq)
-        if piece and piece.color == chess.BLACK:
+        if piece and piece.color == chess.BLACK and piece.piece_type in (chess.KNIGHT, chess.BISHOP):
             score += 15
 
     # 3. King safety (reward castling)
-    if not board.has_kingside_castling_rights(chess.WHITE) and \
-       not board.has_queenside_castling_rights(chess.WHITE):
-        score += 20
-
-    if not board.has_kingside_castling_rights(chess.BLACK) and \
-       not board.has_queenside_castling_rights(chess.BLACK):
-        score -= 20
+    for color, sign in ((chess.WHITE, 1), (chess.BLACK, -1)):
+        score += sign * king_safety(board, color)
 
     # 4. Pawn structure (penalize doubled pawns)
     white_pawns = board.pieces(chess.PAWN, chess.WHITE)
@@ -104,15 +114,9 @@ def positional_terms(board: chess.Board) -> float:
             if isolated:
                 score += -15 if color == chess.WHITE else 15
 
-    # 6. Mobility (reward positions with more legal moves)
-    white_board = board.copy()
-    white_board.turn = chess.WHITE
-
-    black_board = board.copy()
-    black_board.turn = chess.BLACK
-
-    white_mobility = white_board.legal_moves.count()
-    black_mobility = black_board.legal_moves.count()
+    # 6. Mobility (reward positions with more attack positions available, even it cannot be captured)
+    white_mobility = sum(len(board.attacks(sq)) for sq in chess.SquareSet(board.occupied_co[chess.WHITE]))
+    black_mobility = sum(len(board.attacks(sq)) for sq in chess.SquareSet(board.occupied_co[chess.BLACK]))
 
     score += 2 * (white_mobility - black_mobility)
 
