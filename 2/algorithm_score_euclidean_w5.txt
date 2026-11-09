@@ -1,0 +1,28 @@
+A* SEARCH LAB | seed=20260915 | algorithm=algorithm, heuristic=euclidean, weight=5
+Attempted: 20/20 | Solved: 20/20
+Overall score: 97.23/100
+Unattempted levels count as zero. Moves exclude the start cell.
+Expanded = student-reported frontier removals, including goal; not graded.
+Level | Moves | Optimal | Expanded | BFS expanded | Search ms | Score | Status
+01 | 94 | 94 | 95 | 2496 | 0.560 | 100.00 | Solved
+02 | 94 | 94 | 97 | 2371 | 0.580 | 100.00 | Solved
+03 | 96 | 94 | 99 | 2271 | 0.727 | 97.92 | Solved
+04 | 96 | 94 | 101 | 2171 | 0.600 | 97.92 | Solved
+05 | 98 | 94 | 105 | 2071 | 0.582 | 95.92 | Solved
+06 | 96 | 94 | 118 | 1967 | 0.633 | 97.92 | Solved
+07 | 96 | 94 | 118 | 1857 | 0.626 | 97.92 | Solved
+08 | 102 | 98 | 145 | 1751 | 0.755 | 96.08 | Solved
+09 | 104 | 102 | 159 | 1624 | 0.811 | 98.08 | Solved
+10 | 114 | 108 | 338 | 1468 | 1.521 | 94.74 | Solved
+11 | 118 | 118 | 126 | 1199 | 0.533 | 100.00 | Solved
+12 | 178 | 154 | 347 | 1218 | 1.437 | 86.52 | Solved
+13 | 178 | 170 | 455 | 870 | 1.788 | 95.51 | Solved
+14 | 202 | 186 | 359 | 815 | 1.374 | 92.08 | Solved
+15 | 326 | 318 | 606 | 1173 | 2.363 | 97.55 | Solved
+16 | 326 | 326 | 482 | 541 | 1.803 | 100.00 | Solved
+17 | 462 | 446 | 868 | 1049 | 3.291 | 96.54 | Solved
+18 | 514 | 514 | 1002 | 1137 | 3.893 | 100.00 | Solved
+19 | 522 | 522 | 1007 | 1135 | 3.758 | 100.00 | Solved
+20 | 542 | 542 | 752 | 950 | 2.940 | 100.00 | Solved
+Total successful moves: 4358
+Total recorded search time: 0.030575 seconds

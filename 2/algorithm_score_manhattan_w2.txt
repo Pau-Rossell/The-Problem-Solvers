@@ -1,0 +1,28 @@
+A* SEARCH LAB | seed=20260915 | algorithm=algorithm, heuristic=manhattan, weight=2
+Attempted: 20/20 | Solved: 20/20
+Overall score: 95.51/100
+Unattempted levels count as zero. Moves exclude the start cell.
+Expanded = student-reported frontier removals, including goal; not graded.
+Level | Moves | Optimal | Expanded | BFS expanded | Search ms | Score | Status
+01 | 94 | 94 | 95 | 2496 | 0.654 | 100.00 | Solved
+02 | 96 | 94 | 99 | 2371 | 0.686 | 97.92 | Solved
+03 | 100 | 94 | 103 | 2271 | 0.683 | 94.00 | Solved
+04 | 106 | 94 | 147 | 2171 | 0.877 | 88.68 | Solved
+05 | 106 | 94 | 276 | 2071 | 1.420 | 88.68 | Solved
+06 | 102 | 94 | 214 | 1967 | 1.060 | 92.16 | Solved
+07 | 102 | 94 | 187 | 1857 | 0.963 | 92.16 | Solved
+08 | 108 | 98 | 239 | 1751 | 1.199 | 90.74 | Solved
+09 | 112 | 102 | 220 | 1624 | 1.071 | 91.07 | Solved
+10 | 114 | 108 | 340 | 1468 | 1.536 | 94.74 | Solved
+11 | 134 | 118 | 146 | 1199 | 0.657 | 88.06 | Solved
+12 | 154 | 154 | 343 | 1218 | 1.436 | 100.00 | Solved
+13 | 170 | 170 | 553 | 870 | 2.421 | 100.00 | Solved
+14 | 202 | 186 | 461 | 815 | 1.958 | 92.08 | Solved
+15 | 318 | 318 | 834 | 1173 | 3.527 | 100.00 | Solved
+16 | 326 | 326 | 481 | 541 | 1.941 | 100.00 | Solved
+17 | 446 | 446 | 852 | 1049 | 3.530 | 100.00 | Solved
+18 | 514 | 514 | 1066 | 1137 | 4.257 | 100.00 | Solved
+19 | 522 | 522 | 1015 | 1135 | 3.861 | 100.00 | Solved
+20 | 542 | 542 | 783 | 950 | 3.592 | 100.00 | Solved
+Total successful moves: 4368
+Total recorded search time: 0.037330 seconds

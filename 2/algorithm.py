@@ -8,6 +8,8 @@ HEURISTICS = {
     'zero':      lambda p, g: 0,
     'manhattan': lambda p, g: abs(p[0] - g[0]) + abs(p[1] - g[1]),
     'euclidean': lambda p, g: sqrt((p[0] - g[0])**2 + (p[1] - g[1])**2),
+    # No square root: overestimates the real distance, so it is NOT admissible (greedy-like search).
+    'squared_euclidean': lambda p, g: (p[0] - g[0])**2 + (p[1] - g[1])**2,
 }
 
 def solve(grid, start, goal, heuristic='euclidean', weight=1.0):

@@ -47,5 +47,5 @@ def blind_search(grid, start, goal, strategy):
     # random search demo ends
     return [], expanded, exploration
 
-def solve(grid, start, goal):
-    return blind_search(grid, start, goal, strategy='DFS') # DFS or BFS
+def solve(grid, start, goal, strategy='DFS'):
+    return blind_search(grid, start, goal, strategy=strategy)  # 'DFS' or 'BFS'
